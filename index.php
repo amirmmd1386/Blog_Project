@@ -16,11 +16,6 @@
 <body dir="rtl" class="">
     <?php
     session_start();
-    $_SESSION['type'] = 'usuall';
-
-    if (isset($_GET['admin'])) {
-        $_SESSION['type'] = 'admin';
-    }
     $link = mysqli_connect("localhost", "root", "", "blog_dbl");
     if (isset($_GET['editId'])) {
         $editQue = "select * from content_tbl where contentId = $_GET[editId]";
@@ -162,7 +157,7 @@
                             <span class="input-group-text bg-sky-blue">پسورد</span>
                         </div>
                         <div class="align-self-end ">
-                            <button type="button" class="btn btn-outline-danger align-self-end " data-bs-dismiss="modal">بستن</button>
+                            <input type="submit" class="btn btn-outline-danger align-self-end " value="کاربرم" />
                             <input type="submit" value="ورود" class="btn btn-outline-success ">
                         </div>
                     </form>
@@ -328,7 +323,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-sky-blue">
                     <h5 class="modal-title ms-auto " id="exampleModalLabel">اد کن مطالب</h5>
-                    <button type="button" class="btn-close ms-0 " onclick="resetUrl()" ></button>
+                    <button type="button" class="btn-close ms-0 " onclick="resetUrl()"></button>
                 </div>
                 <div class="modal-body">
                     <!-- Tabs navs -->
@@ -654,6 +649,13 @@
                 var myModal = new bootstrap.Modal(document.getElementById('edit'));
                 myModal.show();
             }
+            
+            <?php
+            if ($_SESSION['type'] != 'usuall' && $_SESSION['type'] != 'admin') {
+                echo "var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+                myModal.show();";
+            }
+            ?>
         });
     </script>
 
